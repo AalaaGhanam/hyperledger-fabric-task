@@ -1,0 +1,154 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer.aalaa.com:
+    container_name: orderer.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/aalaa.com/orderers/orderer.aalaa.com/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/aalaa.com/orderers/orderer.aalaa.com/tls/:/var/hyperledger/orderer/tls
+        - orderer.aalaa.com:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  peer0.ibm.aalaa.com:
+    container_name: peer0.ibm.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.ibm.aalaa.com
+      - CORE_PEER_ADDRESS=peer0.ibm.aalaa.com:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.ibm.aalaa.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.ibm.aalaa.com:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.ibm.aalaa.com:7051
+      - CORE_PEER_LOCALMSPID=IbmMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/ibm.aalaa.com/peers/peer0.ibm.aalaa.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/ibm.aalaa.com/peers/peer0.ibm.aalaa.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.ibm.aalaa.com:/var/hyperledger/production
+    ports:
+      - 7051:7051
+
+  peer1.ibm.aalaa.com:
+    container_name: peer1.ibm.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.ibm.aalaa.com
+      - CORE_PEER_ADDRESS=peer1.ibm.aalaa.com:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.ibm.aalaa.com:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.ibm.aalaa.com:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ibm.aalaa.com:7051
+      - CORE_PEER_LOCALMSPID=IbmMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/ibm.aalaa.com/peers/peer1.ibm.aalaa.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/ibm.aalaa.com/peers/peer1.ibm.aalaa.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.ibm.aalaa.com:/var/hyperledger/production
+
+    ports:
+      - 8051:8051
+
+  peer0.hsbc.aalaa.com:
+    container_name: peer0.hsbc.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.hsbc.aalaa.com
+      - CORE_PEER_ADDRESS=peer0.hsbc.aalaa.com:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.hsbc.aalaa.com:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.hsbc.aalaa.com:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.hsbc.aalaa.com:10051
+      - CORE_PEER_LOCALMSPID=HsbcMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/hsbc.aalaa.com/peers/peer0.hsbc.aalaa.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/hsbc.aalaa.com/peers/peer0.hsbc.aalaa.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.hsbc.aalaa.com:/var/hyperledger/production
+    ports:
+      - 9051:9051
+
+  peer1.hsbc.aalaa.com:
+    container_name: peer1.hsbc.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.hsbc.aalaa.com
+      - CORE_PEER_ADDRESS=peer1.hsbc.aalaa.com:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.hsbc.aalaa.com:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.hsbc.aalaa.com:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.hsbc.aalaa.com:9051
+      - CORE_PEER_LOCALMSPID=HsbcMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/hsbc.aalaa.com/peers/peer1.hsbc.aalaa.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/hsbc.aalaa.com/peers/peer1.hsbc.aalaa.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.hsbc.aalaa.com:/var/hyperledger/production
+    ports:
+      - 10051:10051
+
+  peer0.cib.aalaa.com:
+    container_name: peer0.cib.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.cib.aalaa.com
+      - CORE_PEER_ADDRESS=peer0.cib.aalaa.com:5051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:5051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.cib.aalaa.com:5052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:5052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.cib.aalaa.com:5051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.cib.aalaa.com:6051
+      - CORE_PEER_LOCALMSPID=CibMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/cib.aalaa.com/peers/peer0.cib.aalaa.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/cib.aalaa.com/peers/peer0.cib.aalaa.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.cib.aalaa.com:/var/hyperledger/production
+    ports:
+      - 5051:5051
+
+  peer1.cib.aalaa.com:
+    container_name: peer1.cib.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.cib.aalaa.com
+      - CORE_PEER_ADDRESS=peer1.cib.aalaa.com:6051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:6051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.cib.aalaa.com:6052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:6052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.cib.aalaa.com:5051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.cib.aalaa.com:6051
+      - CORE_PEER_LOCALMSPID=CibMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/cib.aalaa.com/peers/peer1.cib.aalaa.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/cib.aalaa.com/peers/peer1.cib.aalaa.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.cib.aalaa.com:/var/hyperledger/production
+    ports:
+      - 6051:6051

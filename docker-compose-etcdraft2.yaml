@@ -1,0 +1,77 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  orderer2.aalaa.com:
+  orderer3.aalaa.com:
+  orderer4.aalaa.com:
+  orderer5.aalaa.com:
+
+networks:
+  byfn:
+
+services:
+
+  orderer2.aalaa.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    container_name: orderer2.aalaa.com
+    networks:
+    - byfn
+    volumes:
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./crypto-config/ordererOrganizations/aalaa.com/orderers/orderer2.aalaa.com/msp:/var/hyperledger/orderer/msp
+        - ./crypto-config/ordererOrganizations/aalaa.com/orderers/orderer2.aalaa.com/tls/:/var/hyperledger/orderer/tls
+        - orderer2.aalaa.com:/var/hyperledger/production/orderer
+    ports:
+    - 8050:7050
+
+  orderer3.example.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    container_name: orderer3.aalaa.com
+    networks:
+    - byfn
+    volumes:
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./crypto-config/ordererOrganizations/aalaa.com/orderers/orderer3.aalaa.com/msp:/var/hyperledger/orderer/msp
+        - ./crypto-config/ordererOrganizations/aalaa.com/orderers/orderer3.aalaa.com/tls/:/var/hyperledger/orderer/tls
+        - orderer3.aalaa.com:/var/hyperledger/production/orderer
+    ports:
+    - 9050:7050
+
+  orderer4.example.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    container_name: orderer4.example.com
+    networks:
+    - byfn
+    volumes:
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./crypto-config/ordererOrganizations/aalaa.com/orderers/orderer4.aalaa.com/msp:/var/hyperledger/orderer/msp
+        - ./crypto-config/ordererOrganizations/aalaa.com/orderers/orderer4.aalaa.com/tls/:/var/hyperledger/orderer/tls
+        - orderer4.aalaa.com:/var/hyperledger/production/orderer
+    ports:
+    - 10050:7050
+
+  orderer5.example.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    container_name: orderer5.example.com
+    networks:
+    - byfn
+    volumes:
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./crypto-config/ordererOrganizations/aalaa.com/orderers/orderer5.aalaa.com/msp:/var/hyperledger/orderer/msp
+        - ./crypto-config/ordererOrganizations/aalaa.com/orderers/orderer5.aalaa.com/tls/:/var/hyperledger/orderer/tls
+        - orderer5.aalaa.com:/var/hyperledger/production/orderer
+    ports:
+    - 11050:7050

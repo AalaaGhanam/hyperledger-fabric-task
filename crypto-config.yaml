@@ -1,0 +1,31 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: aalaa.com
+    Specs:
+      - Hostname: orderer
+      - Hostname: orderer2
+      - Hostname: orderer3
+      - Hostname: orderer4
+      - Hostname: orderer5
+PeerOrgs:
+  - Name: Ibm
+    Domain: ibm.aalaa.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+  - Name: Hsbc
+    Domain: hsbc.aalaa.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+  - Name: Cib
+    Domain: cib.aalaa.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1
