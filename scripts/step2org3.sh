@@ -12,7 +12,7 @@
 #
 
 echo
-echo "========= Getting Org3 on to your first network ========= "
+echo "========= Getting Nbe on to your first network ========= "
 echo
 CHANNEL_NAME="$1"
 DELAY="$2"

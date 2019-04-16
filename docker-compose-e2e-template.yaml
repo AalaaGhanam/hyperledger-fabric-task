@@ -13,9 +13,12 @@ volumes:
   peer1.hsbc.aalaa.com:
   peer0.cib.aalaa.com:
   peer1.cib.aalaa.com:
+  peer0.nbe.aalaa.com:
+  peer1.nbe.aalaa.com:
   c0.ibm.aalaa.com:
   c1.hsbc.aalaa.com:
   c2.cib.aalaa.com:
+  c3.nbe.aalaa.com:
 
 networks:
   byfn:
@@ -68,6 +71,23 @@ services:
     volumes:
       - ./crypto-config/peerOrganizations/cib.aalaa.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: c2.cib.aalaa.com
+    networks:
+      - byfn
+
+  ca3:
+    image: hyperledger/fabric-ca:1.4
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-nbe
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.nbe.aalaa.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY
+    ports:
+      - "10054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.nbe.aalaa.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/nbe.aalaa.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: c3.nbe.aalaa.com
     networks:
       - byfn
 
@@ -124,5 +144,21 @@ services:
     extends:
       file:  base/docker-compose-base.yaml
       service: peer1.cib.aalaa.com
+    networks:
+      - byfn
+
+  peer0.nbe.aalaa.com:
+    container_name: peer0.nbe.aalaa.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.nbe.aalaa.com
+    networks:
+      - byfn
+
+  peer1.nbe.aalaa.com:
+    container_name: peer1.nbe.aalaa.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.nbe.aalaa.com
     networks:
       - byfn

@@ -28,4 +28,4 @@ Organizations:
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
             - Host: peer0.nbe.aalaa.com
-              Port: 3051
+              Port: 13051

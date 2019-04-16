@@ -66,9 +66,9 @@ setGlobals() {
     CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG4_CA
     CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/nbe.aalaa.com/users/Admin@nbe.aalaa.com/msp
     if [ $PEER -eq 0 ]; then
-      CORE_PEER_ADDRESS=peer0.nbe.aalaa.com:14051
+      CORE_PEER_ADDRESS=peer0.nbe.aalaa.com:3051
     else
-      CORE_PEER_ADDRESS=peer1.nbe.aalaa.com:15051
+      CORE_PEER_ADDRESS=peer1.nbe.aalaa.com:4051
     fi
   else
     echo "================== ERROR !!! ORG Unknown =================="

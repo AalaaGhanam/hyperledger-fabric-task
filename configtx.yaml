@@ -84,6 +84,28 @@ Organizations:
             - Host: peer0.cib.aalaa.com
               Port: 11051
 
+    - &Nbe
+        Name: NbeMSP
+
+        ID: NbeMSP
+
+        MSPDir: crypto-config/peerOrganizations/nbe.aalaa.com/msp
+
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('NbeMSP.admin', 'NbeMSP.peer', 'NbeMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('NbeMSP.admin', 'NbeMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('NbeMSP.admin')"
+
+        AnchorPeers:
+            - Host: peer0.nbe.aalaa.com
+              Port: 3051
+
 Capabilities:
     Channel: &ChannelCapabilities
         V1_3: true
@@ -189,6 +211,7 @@ Profiles:
                     - *Ibm
                     - *Hsbc
                     - *Cib
+                    - *Nbe
     ThreeOrgsChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
@@ -198,6 +221,7 @@ Profiles:
                 - *Ibm
                 - *Hsbc
                 - *Cib
+                - *Nbe
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -226,6 +250,7 @@ Profiles:
                 - *Ibm
                 - *Hsbc
                 - *Cib
+                - *Nbe
 
     SampleMultiNodeEtcdRaft:
         <<: *ChannelDefaults
@@ -277,3 +302,4 @@ Profiles:
                 - *Ibm
                 - *Hsbc
                 - *Cib
+                - *Nbe

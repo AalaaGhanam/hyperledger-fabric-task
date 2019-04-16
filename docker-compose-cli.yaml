@@ -9,6 +9,8 @@ volumes:
   peer1.hsbc.aalaa.com:
   peer0.cib.aalaa.com:
   peer1.cib.aalaa.com:
+  peer0.nbe.aalaa.com:
+  peer1.nbe.aalaa.com:
 
 networks:
   byfn:
@@ -71,6 +73,22 @@ services:
     networks:
       - byfn
 
+  peer0.nbe.aalaa.com:
+    container_name: peer0.nbe.aalaa.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.nbe.aalaa.com
+    networks:
+      - byfn
+
+  peer1.nbe.aalaa.com:
+    container_name: peer1.nbe.aalaa.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.nbe.aalaa.com
+    networks:
+      - byfn
+
   cli:
     container_name: cli
     image: hyperledger/fabric-tools:$IMAGE_TAG
@@ -105,5 +123,7 @@ services:
       - peer1.hsbc.aalaa.com
       - peer0.cib.aalaa.com
       - peer1.cib.aalaa.com
+      - peer0.nbe.aalaa.com
+      - peer1.nbe.aalaa.com
     networks:
       - byfn

@@ -29,3 +29,10 @@ PeerOrgs:
       Count: 2
     Users:
       Count: 1
+  - Name: Nbe
+    Domain: nbe.aalaa.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1

@@ -142,8 +142,8 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:6051
       - CORE_PEER_CHAINCODEADDRESS=peer1.cib.aalaa.com:6052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:6052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.cib.aalaa.com:5051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.cib.aalaa.com:6051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.cib.aalaa.com:6051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.cib.aalaa.com:5051
       - CORE_PEER_LOCALMSPID=CibMSP
     volumes:
         - /var/run/:/host/var/run/
@@ -152,3 +152,47 @@ services:
         - peer1.cib.aalaa.com:/var/hyperledger/production
     ports:
       - 6051:6051
+
+  peer0.nbe.aalaa.com:
+    container_name: peer0.nbe.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.nbe.aalaa.com
+      - CORE_PEER_ADDRESS=peer0.nbe.aalaa.com:3051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:3051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.nbe.aalaa.com:3052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:3052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.nbe.aalaa.com:3051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.nbe.aalaa.com:4051
+      - CORE_PEER_LOCALMSPID=NbeMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/nbe.aalaa.com/peers/peer0.nbe.aalaa.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/nbe.aalaa.com/peers/peer0.nbe.aalaa.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.nbe.aalaa.com:/var/hyperledger/production
+    ports:
+      - 3051:3051
+
+  peer1.nbe.aalaa.com:
+    container_name: peer1.nbe.aalaa.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.nbe.aalaa.com
+      - CORE_PEER_ADDRESS=peer1.nbe.aalaa.com:4051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:4051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.nbe.aalaa.com:4052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:4052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.nbe.aalaa.com:4051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.nbe.aalaa.com:3051
+      - CORE_PEER_LOCALMSPID=NbeMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/nbe.aalaa.com/peers/peer1.nbe.aalaa.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/nbe.aalaa.com/peers/peer1.nbe.aalaa.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.nbe.aalaa.com:/var/hyperledger/production
+    ports:
+      - 4051:4051

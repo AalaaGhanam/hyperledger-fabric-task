@@ -76,6 +76,12 @@ joinChannel () {
             sleep $DELAY
 	    echo
 	done
+        for peer in 0 1; do
+            joinChannelWithRetry $peer "nbe"
+            echo "===================== peer${peer}.nbe joined channel '$CHANNEL_NAME' ===================== "
+            sleep $DELAY
+	    echo
+	done
 }
 
 ## Create channel
@@ -87,12 +93,14 @@ echo "Having all peers join the channel..."
 joinChannel
 
 ## Set the anchor peers for each org in the channel
-echo "Updating anchor peers for org1..."
+echo "Updating anchor peers for ibm..."
 updateAnchorPeers 0 "ibm"
-echo "Updating anchor peers for org2..."
+echo "Updating anchor peers for hsbc..."
 updateAnchorPeers 0 "hsbc"
-echo "Updating anchor peers for org2..."
+echo "Updating anchor peers for cib..."
 updateAnchorPeers 0 "cib"
+echo "Updating anchor peers for nbe..."
+updateAnchorPeers 0 "nbe"
 
 echo
 echo "========= All GOOD, BYFN execution completed =========== "

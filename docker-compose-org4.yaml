@@ -22,10 +22,10 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-nbe
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.nbe.aalaa.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/
     ports:
-      - "13054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.nbe.aalaa.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY -b admin:adminpw -d'
+      - "10054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.nbe.aalaa.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/ -b admin:adminpw -d'
     volumes:
       - ./org4-artifacts/crypto-config/peerOrganizations/nbe.aalaa.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: c3.nbe.aalaa.com
@@ -39,12 +39,12 @@ services:
       service: peer-base
     environment:
       - CORE_PEER_ID=peer0.nbe.aalaa.com
-      - CORE_PEER_ADDRESS=peer0.nbe.aalaa.com:3051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:3051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.nbe.aalaa:3052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:3052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.nbe.aalaa.com:4051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.nbe.aalaa.com:3051
+      - CORE_PEER_ADDRESS=peer0.nbe.aalaa.com:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.nbe.aalaa:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.nbe.aalaa.com:14051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.nbe.aalaa.com:13051
       - CORE_PEER_LOCALMSPID=NbeMSP
     volumes:
         - /var/run/:/host/var/run/
@@ -52,7 +52,7 @@ services:
         - ./org4-artifacts/crypto-config/peerOrganizations/nbe.aalaa.com/peers/peer0.nbe.aalaa.com/tls:/etc/hyperledger/fabric/tls
         - peer0.nbe.aalaa.com:/var/hyperledger/production
     ports:
-      - 14051:3051
+      - 13051:3051
     networks:
       - byfn
 
@@ -63,12 +63,12 @@ services:
       service: peer-base
     environment:
       - CORE_PEER_ID=peer1.nbe.aalaa.com
-      - CORE_PEER_ADDRESS=peer1.nbe.aalaa.com:4051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:4051
-      - CORE_PEER_CHAINCODEADDRESS=peer1.nbe.aalaa.com:4052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:4052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.nbe.aalaa.com:3051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.nbe.aalaa.com:4051
+      - CORE_PEER_ADDRESS=peer1.nbe.aalaa.com:14051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.nbe.aalaa.com:14052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.nbe.aalaa.com:13051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.nbe.aalaa.com:14051
       - CORE_PEER_LOCALMSPID=NbeMSP
     volumes:
         - /var/run/:/host/var/run/
@@ -76,7 +76,7 @@ services:
         - ./nbe-artifacts/crypto-config/peerOrganizations/nbe.aalaa.com/peers/peer1.nbe.aalaa.com/tls:/etc/hyperledger/fabric/tls
         - peer1.nbe.aalaa.com:/var/hyperledger/production
     ports:
-      - 15051:4051
+      - 14051:4051
     networks:
       - byfn
 
@@ -92,7 +92,7 @@ services:
       - FABRIC_LOGGING_SPEC=INFO
       #- FABRIC_LOGGING_SPEC=DEBUG
       - CORE_PEER_ID=nbecli
-      - CORE_PEER_ADDRESS=peer0.nbe.aalaa.com:3051
+      - CORE_PEER_ADDRESS=peer0.nbe.aalaa.com:13051
       - CORE_PEER_LOCALMSPID=NbeMSP
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/nbe.aalaa.com/peers/peer0.nbe.aalaa.com/tls/server.crt

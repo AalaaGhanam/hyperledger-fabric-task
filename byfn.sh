@@ -226,7 +226,7 @@ function upgradeNetwork() {
     docker cp -a orderer.aalaa.com:/var/hyperledger/production/orderer $LEDGERS_BACKUP/orderer.aalaa.com
     docker-compose $COMPOSE_FILES up -d --no-deps orderer.aalaa.com
 
-    for PEER in peer0.ibm.aalaa.com peer1.ibm.aalaa.com peer0.hsbc.aalaa.com peer1.hsbc.aalaa.com peer0.cib.aalaa.com peer1.cib.aalaa.com; do
+    for PEER in peer0.ibm.aalaa.com peer1.ibm.aalaa.com peer0.hsbc.aalaa.com peer1.hsbc.aalaa.com peer0.cib.aalaa.com peer1.cib.aalaa.com peer0.nbe.aalaa.com peer1.nbe.aalaa.com; do
       echo "Upgrading peer $PEER"
 
       # Stop the peer and backup its ledger
@@ -310,6 +310,10 @@ function replacePrivateKey() {
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/CA3_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  cd crypto-config/peerOrganizations/nbe.aalaa.com/ca/
+  PRIV_KEY=$(ls *_sk)
+  cd "$CURRENT_DIR"
+  sed $OPTS "s/CA4_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
   # If MacOSX, remove the temporary backup of the docker-compose file
   if [ "$ARCH" == "Darwin" ]; then
     rm docker-compose-e2e.yamlt
@@ -479,6 +483,20 @@ function generateChannelArtifacts() {
   set +x
   if [ $res -ne 0 ]; then
     echo "Failed to generate anchor peer update for Org3MSP..."
+    exit 1
+  fi
+
+  echo
+  echo "#################################################################"
+  echo "#######    Generating anchor peer update for Org4MSP   ##########"
+  echo "#################################################################"
+  set -x
+  configtxgen -profile ThreeOrgsChannel -outputAnchorPeersUpdate \
+    ./channel-artifacts/NbeMSPanchors.tx -channelID $CHANNEL_NAME -asOrg NbeMSP
+  res=$?
+  set +x
+  if [ $res -ne 0 ]; then
+    echo "Failed to generate anchor peer update for NbeMSP..."
     exit 1
   fi
   echo

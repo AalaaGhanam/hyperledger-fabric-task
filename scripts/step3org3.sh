@@ -13,7 +13,7 @@
 #
 
 echo
-echo "========= Finish adding Org3 to your first network ========= "
+echo "========= Finish adding Nbe to your first network ========= "
 echo
 CHANNEL_NAME="$1"
 DELAY="$2"
@@ -38,7 +38,7 @@ fi
 . scripts/utils.sh
 
 echo
-echo "========= Finished adding Org3 to your first network! ========= "
+echo "========= Finished adding Nbe to your first network! ========= "
 echo
 
 exit 0
