@@ -18,7 +18,6 @@ class Patent extends Contract {
      async instantiate(ctx) {
 
         let emptyList = [];
-
         await ctx.stub.putState('owners', Buffer.from(JSON.stringify(emptyList)));
         await ctx.stub.putState('verifiers', Buffer.from(JSON.stringify(emptyList)));
         await ctx.stub.putState('publishers', Buffer.from(JSON.stringify(emptyList)));
