@@ -1,0 +1,36 @@
+{
+  "name": "patent-app",
+  "version": "0.0.1",
+  "description": "patent contract web-application",
+  "scripts": {
+    "start": "node index"
+  },
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "author": "IBM",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "extend": "",
+    "browserfs": "^1.2.0",
+    "mkdirp": "^0.5.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "cfenv": "^1.0.4",
+    "connect-busboy": "0.0.2",
+    "cookie-parser": "^1.4.3",
+    "date-format": "",
+    "ejs": "",
+    "express": "^4.15.4",
+    "fabric-network": "~1.4.0",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "mime": "^2.0.2",
+    "os": "^0.1.1",
+    "path": "^0.12.7",
+    "sleep": "^5.1.1",
+    "websocket": "^1.0.24"
+  }
+}

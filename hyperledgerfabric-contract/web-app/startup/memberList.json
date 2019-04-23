@@ -1,0 +1,25 @@
+{ "members":
+    [
+        {"type": "Owner", "companyName": "ibm", "id": "bob@ibm.com"},
+        {"type": "Owner", "companyName": "ibm", "id": "jojo@ibm.com"},
+        {"type": "Owner", "companyName": "ibm", "id": "mary@ibm.com"},
+        {"type": "Owner", "companyName": "ibm", "id": "wilber@ibm.com"},
+        {"type": "Owner", "companyName": "ibm", "id": "Erin@ibm.com"},
+        {"type": "Verifier", "companyName": "hsbc", "id": "abdul@hsbc.com"},
+        {"type": "Verifier", "companyName": "hsbc", "id": "aiesha@hsbc.com"},
+        {"type": "Verifier", "companyName": "hsbc", "id": "joshua@hsbc.com"},
+        {"type": "Publisher", "companyName": "cib", "id": "alwayson@cib.com"},
+        {"type": "Publisher", "companyName": "cib", "id": "anytime@cib.com"},
+        {"type": "Publisher", "companyName": "cib", "id": "yes@cib.com"},
+        {"type": "Publisher", "companyName": "cib", "id": "eric@cib.com"} 
+    ],
+    "patents":
+    [   
+        {"patentNumber": "1", 
+            "industry": "gov", "priorArt" : "1",
+            "ownerId": "bob@ibm.com", 
+            "details": "gov patent", 
+            "verifierId": "abdul@hsbc.com", 
+            "publisherId": "alwayson@cib.com" }
+    ]
+}
