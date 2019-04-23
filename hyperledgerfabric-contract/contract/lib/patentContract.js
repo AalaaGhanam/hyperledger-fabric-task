@@ -122,6 +122,9 @@ class Patent extends Contract {
             details: details,
             verifierId: verifierId,
             publisherId: null,
+            publishURL: null,
+            publishDate: null,
+            rejectionReason: null
         };
 
         owner.patents.push(patentNumber);
@@ -188,7 +191,7 @@ class Patent extends Contract {
         }
     }
 
-    async RejectPatent(ctx, patentNumber, ownerId, verifierId) {
+    async RejectPatent(ctx, patentNumber, ownerId, verifierId, rejectionReason) {
 
         let data = await ctx.stub.getState(patentNumber);
         let patent;
@@ -221,6 +224,7 @@ class Patent extends Contract {
 
         if (patent.status == JSON.stringify(patentStatus.New)) {
             patent.status = JSON.stringify(patentStatus.Rejected);
+            patent.rejectionReason = rejectionReason;
             await ctx.stub.putState(patentNumber, Buffer.from(JSON.stringify(patent)));
 
             verifier.patents.push(patentNumber);
@@ -232,7 +236,7 @@ class Patent extends Contract {
         }
     }
 
-    async PublishPatent(ctx, patentNumber, ownerId, publisherId) {
+    async PublishPatent(ctx, patentNumber, ownerId, publisherId, publishURL, publishDate) {
 
         let data = await ctx.stub.getState(patentNumber);
         let patent;
@@ -265,6 +269,8 @@ class Patent extends Contract {
 
         if (patent.status == JSON.stringify(patentStatus.Verified)) {
             patent.status = JSON.stringify(patentStatus.Published);
+            patent.publishURL = publishURL;
+            patent.publishDate =publishDate;
             await ctx.stub.putState(patentNumber, Buffer.from(JSON.stringify(patent)));
 
             publisher.patents.push(patentNumber);

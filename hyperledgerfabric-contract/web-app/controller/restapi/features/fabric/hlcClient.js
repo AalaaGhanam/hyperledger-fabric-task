@@ -82,13 +82,13 @@ exports.patentAction = async function (req, res, next) {
             break;
         case 'Reject':
             console.log('RejectPatent entered');
-            const rejectResponse = await contract.submitTransaction('RejectPatent', patent.patentNumber, patent.owners[0].ownerId, patent.verifierId);
+            const rejectResponse = await contract.submitTransaction('RejectPatent', patent.patentNumber, patent.owners[0].ownerId, patent.verifierId, req.body.rejectionReason);
             console.log('reject_response: ');
             console.log(JSON.parse(rejectResponse.toString()));            
             break;
         case 'Publish':
             console.log('PublishPatent entered');
-            const publishResponse = await contract.submitTransaction('PublishPatent', patent.patentNumber, patent.owners[0].ownerId, patent.publisherId);
+            const publishResponse = await contract.submitTransaction('PublishPatent', patent.patentNumber, patent.owners[0].ownerId, patent.publisherId, req.body.publishURL, req.body.publishDate);
             console.log('publish_response: ');
             console.log(JSON.parse(publishResponse.toString()));             
             break;
