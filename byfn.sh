@@ -31,7 +31,6 @@
 export PATH=${PWD}/../bin:${PWD}:$PATH
 export FABRIC_CFG_PATH=${PWD}
 export VERBOSE=false
-
 # Print the usage message
 function printHelp() {
   echo "Usage: "
